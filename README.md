@@ -7,6 +7,7 @@ A Chrome extension that keeps YouTube videos at your preferred quality.
 ## Features
 
 - Playback quality selection from 144p to 4320p
+- Quality selection for standard videos and Shorts
 - Enhanced bitrate toggle (OFF by default; **requires a YouTube Premium account**)
 - Automatic (system), light, and dark themes
 - Korean and English support

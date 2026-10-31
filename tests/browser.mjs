@@ -163,4 +163,30 @@ try {
   await playerPage.evaluate(()=>document.querySelector('#movie_player').classList.remove('ad-showing'));
   await playerPage.waitForFunction(()=>window.current==='hd2160');
   console.log('PASS: mocked player locks initially matching quality, selects exposed Premium, restores auto, skips ads and reapplies');
+
+  const shorts = await browser.newPage();
+  await shorts.route('https://www.youtube.com/**', route=>route.fulfill({contentType:'text/html',body:'<ytd-reel-video-renderer is-active><div class="html5-video-player"></div></ytd-reel-video-renderer><ytd-reel-video-renderer><div class="html5-video-player"></div></ytd-reel-video-renderer>'}));
+  await shorts.goto('https://www.youtube.com/shorts/first');
+  await shorts.evaluate(()=>document.querySelectorAll('.html5-video-player').forEach(p=>{
+    p.calls=[]; p.current='medium';
+    p.getAvailableQualityLevels=()=>['hd1080','medium'];
+    p.getPlaybackQuality=()=>p.current;
+    p.setPlaybackQualityRange=(min,max)=>p.calls.push([min,max]);
+    p.setPlaybackQuality=id=>p.current=id;
+  }));
+  await shorts.addScriptTag({content:await readFile('dist/chrome/player.js','utf8')});
+  await shorts.evaluate(()=>window.postMessage({channel:'youtube-auto-hd',type:'settings',settings:{quality:'1080'}},location.origin));
+  await shorts.waitForFunction(()=>document.querySelectorAll('.html5-video-player')[0].current==='hd1080');
+  assert.equal(await shorts.evaluate(()=>document.querySelectorAll('.html5-video-player')[1].calls.length),0);
+  await shorts.evaluate(()=>{
+    const reels=document.querySelectorAll('ytd-reel-video-renderer');
+    reels[0].removeAttribute('is-active'); reels[1].setAttribute('is-active','');
+    history.pushState({},'', '/shorts/second');
+    document.dispatchEvent(new Event('yt-navigate-finish'));
+  });
+  await shorts.waitForFunction(()=>document.querySelectorAll('.html5-video-player')[1].current==='hd1080');
+  await shorts.evaluate(()=>window.postMessage({channel:'youtube-auto-hd',type:'settings',settings:{enabled:false,quality:'1080'}},location.origin));
+  await shorts.waitForFunction(()=>document.querySelectorAll('.html5-video-player')[1].current==='auto');
+  assert.equal(await shorts.evaluate(()=>document.querySelectorAll('.html5-video-player')[0].calls.length),1);
+  console.log('PASS: Shorts targets active player, switches videos and releases quality when disabled');
 } finally { await browser.close(); }

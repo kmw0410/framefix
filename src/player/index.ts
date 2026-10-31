@@ -13,10 +13,13 @@ let enforcedId = '';
 function reset() { attempts = 0; lastAttempt = 0; enforcedId = ''; }
 function tick() {
   if (!configured || document.visibilityState === 'hidden') return;
-  const player = document.querySelector<Player>('#movie_player');
   const url = new URL(location.href);
-  if (!player || url.pathname !== '/watch') return;
-  const id = url.searchParams.get('v') ?? '';
+  const shorts = /^\/shorts\/([^/]+)\/?$/.exec(url.pathname);
+  const player = shorts
+    ? document.querySelector<Player>('ytd-reel-video-renderer[is-active] .html5-video-player')
+    : url.pathname === '/watch' ? document.querySelector<Player>('#movie_player') : null;
+  if (!player) return;
+  const id = shorts ? shorts[1] : url.searchParams.get('v') ?? '';
   if (id !== videoId || player !== previousPlayer) { videoId = id; previousPlayer = player; reset(); released = false; }
   const isAd = player.classList.contains('ad-showing') || player.classList.contains('ad-interrupting');
   if (isAd) { wasAd = true; return; }
