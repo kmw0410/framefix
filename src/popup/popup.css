@@ -5,6 +5,7 @@
   --hover: #e7e7e4;
   --text: #242422;
   --muted: #70706b;
+  --hint: #62625d;
   --line: #e5e5e1;
   --selected: #fff;
   --track: #858580;
@@ -17,6 +18,7 @@
   --hover: #303030;
   --text: #eeedea;
   --muted: #a3a39c;
+  --hint: #b5b5ae;
   --line: #30302e;
   --selected: #3a3a37;
   --track: #777773;
@@ -30,6 +32,7 @@
     --hover: #303030;
     --text: #eeedea;
     --muted: #a3a39c;
+    --hint: #b5b5ae;
     --line: #30302e;
     --selected: #3a3a37;
     --track: #777773;
@@ -45,7 +48,7 @@ body {
   font: 13px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 24px 24px 0; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 20px 24px 0; }
 .wordmark { display: flex; align-items: center; gap: 7px; font-size: 16px; font-weight: 650; letter-spacing: -.25px; white-space: nowrap; }
 .brand-dot { width: 5px; height: 5px; border-radius: 50%; background: #df4949; flex-shrink: 0; }
 .themes { display: flex; gap: 2px; padding: 3px; background: var(--surface); border-radius: 8px; }
@@ -53,15 +56,15 @@ button { display: grid; place-items: center; width: 27px; height: 27px; padding:
 button:hover { background: var(--hover); color: var(--text); }
 button[aria-pressed=true] { background: var(--selected); color: var(--text); box-shadow: 0 1px 3px #0000000a; }
 svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-main { padding: 34px 24px 0; }
+main { padding: 24px 24px 0; }
 #quality-label { font-size: 12px; font-weight: 500; color: var(--muted); }
 .select-wrap { position: relative; margin-top: 10px; }
 #quality { position: relative; display: block; height: auto; text-align: left; width: 100%; padding: 9px 42px 9px 16px; border: 1px solid transparent; border-radius: 10px; background: var(--surface); color: var(--text); font-family: inherit; font-size: 22px; font-weight: 600; line-height: 1.4; letter-spacing: -.6px; cursor: pointer; }
 #quality:hover { background: var(--hover); }
 
 .chevron { position: absolute; right: 17px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--muted); pointer-events: none; }
-.hint { margin: 12px 0 0; font-size: 11px; line-height: 1.85; color: var(--muted); white-space: pre-line; word-break: keep-all; overflow-wrap: break-word; }
-.bitrate-section { border-top: 1px solid var(--line); margin-top: 26px; padding-top: 24px; }
+.hint { margin: 12px 0 0; font-size: 11px; line-height: 1.85; color: var(--hint); white-space: pre-line; word-break: keep-all; overflow-wrap: break-word; }
+.bitrate-section { border-top: 1px solid var(--line); margin-top: 20px; padding-top: 18px; }
 .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .toggle-row label { font-size: 13px; font-weight: 600; cursor: pointer; }
 .bitrate-section .hint { margin-top: 7px; }
@@ -71,7 +74,7 @@ input[role=switch]:checked { background: var(--text); }
 input[role=switch]:checked::before { transform: translateX(14px); background: var(--thumb); }
 :disabled { opacity: .45; cursor: default; }
 :focus-visible { outline: 2px solid var(--muted); outline-offset: 4px; }
-footer { min-height: 66px; padding: 28px 24px 20px; font-size: 10px; line-height: 1.8; color: var(--muted); }
+footer { min-height: 66px; padding: 18px 24px 16px; font-size: 10px; line-height: 1.8; color: var(--muted); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 @media (forced-colors: active) {
@@ -104,6 +107,6 @@ footer { min-height: 66px; padding: 28px 24px 20px; font-size: 10px; line-height
 
 .power-control { display: flex; align-items: center; gap: 9px; cursor: pointer; }
 #enabled-state { font-size: 10px; font-weight: 600; letter-spacing: .6px; color: var(--muted); }
-.theme-row { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
+.theme-row { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
 #theme-label { font-size: 12px; color: var(--muted); }
 .language-row { margin-top: 14px; padding-top: 0; border-top: 0; }
