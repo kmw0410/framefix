@@ -1,0 +1,83 @@
+{
+  "extensionName": {
+    "message": "FrameFix"
+  },
+  "extensionDescription": {
+    "message": "유튜브 재생 화질을 자동으로 설정하고 유지합니다."
+  },
+  "tagline": {
+    "message": "원하는 화질로, 언제나."
+  },
+  "quality": {
+    "message": "재생 화질"
+  },
+  "enhanced": {
+    "message": "향상된 비트레이트"
+  },
+  "enhancedHint": {
+    "message": "Premium 계정의 지원 영상에서 우선 사용합니다."
+  },
+  "appearance": {
+    "message": "화면 테마"
+  },
+  "theme_system": {
+    "message": "자동 · 시스템 설정"
+  },
+  "theme_light": {
+    "message": "라이트 모드"
+  },
+  "theme_dark": {
+    "message": "다크 모드"
+  },
+  "automatic": {
+    "message": "자동"
+  },
+  "fixedHint": {
+    "message": "미지원 시 가까운 낮은 화질로 재생합니다."
+  },
+  "saving": {
+    "message": "저장 중…"
+  },
+  "saved": {
+    "message": "변경 사항은 자동으로 저장됩니다."
+  },
+  "saveError": {
+    "message": "저장하지 못했습니다. 다시 변경해 주세요."
+  },
+  "loadError": {
+    "message": "설정을 불러오지 못했습니다. 팝업을 다시 열어 주세요."
+  },
+  "importSettings": {
+    "message": "설정 가져오기"
+  },
+  "exportSettings": {
+    "message": "설정 내보내기"
+  },
+  "importing": {
+    "message": "설정을 가져오는 중…"
+  },
+  "importSuccess": {
+    "message": "설정을 가져와 적용했습니다."
+  },
+  "importInvalid": {
+    "message": "올바른 FrameFix 설정 파일이 아닙니다."
+  },
+  "importVersion": {
+    "message": "지원하지 않는 설정 파일 버전입니다."
+  },
+  "importTooLarge": {
+    "message": "설정 파일은 64KB 이하여야 합니다."
+  },
+  "language": {
+    "message": "언어"
+  },
+  "languageAuto": {
+    "message": "자동"
+  },
+  "extensionEnabled": {
+    "message": "FrameFix 사용"
+  },
+  "disabledHint": {
+    "message": "화질 고정을 껐습니다. YouTube가 자동으로 선택합니다."
+  }
+}

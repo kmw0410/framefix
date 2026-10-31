@@ -1,0 +1,70 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-main
+  cancel-in-progress: false
+
+jobs:
+  version:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      tag: ${{ steps.version.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Generate version from commit date and workflow run
+        id: version
+        shell: bash
+        run: |
+          COMMIT_TIME=$(git show -s --format=%ct HEAD)
+          YEAR=$(date -u -d "@$COMMIT_TIME" +%Y)
+          MONTH=$(date -u -d "@$COMMIT_TIME" +%-m)
+          DAY=$(date -u -d "@$COMMIT_TIME" +%-d)
+          test "$GITHUB_RUN_NUMBER" -le 65535
+          echo "version=$YEAR.$MONTH.$DAY.$GITHUB_RUN_NUMBER" >> "$GITHUB_OUTPUT"
+          echo "tag=v$(date -u -d "@$COMMIT_TIME" +%y.%m.%d)-$GITHUB_RUN_NUMBER" >> "$GITHUB_OUTPUT"
+  verify:
+    needs: version
+    uses: ./.github/workflows/ci.yml
+    with:
+      build_version: ${{ needs.version.outputs.version }}
+  publish:
+    needs: [version, verify]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: framefix-packages
+          path: release
+      - name: Publish tested packages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ needs.version.outputs.tag }}
+          RELEASE_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          # An existing release is left intact on re-run.
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo "Release $RELEASE_TAG already exists."
+            exit 0
+          fi
+          gh release create "$RELEASE_TAG" release/* \
+            --target "$RELEASE_SHA" \
+            --title "FrameFix $RELEASE_TAG" \
+            --notes-file release/RELEASE-NOTES.md \
+            --prerelease

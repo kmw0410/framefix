@@ -1,0 +1,83 @@
+{
+  "extensionName": {
+    "message": "FrameFix"
+  },
+  "extensionDescription": {
+    "message": "Automatically select and maintain your preferred YouTube quality."
+  },
+  "tagline": {
+    "message": "Your quality. Every video."
+  },
+  "quality": {
+    "message": "Playback quality"
+  },
+  "enhanced": {
+    "message": "Enhanced bitrate"
+  },
+  "enhancedHint": {
+    "message": "Preferred when available for your Premium account."
+  },
+  "appearance": {
+    "message": "Appearance"
+  },
+  "theme_system": {
+    "message": "Auto · System theme"
+  },
+  "theme_light": {
+    "message": "Light mode"
+  },
+  "theme_dark": {
+    "message": "Dark mode"
+  },
+  "automatic": {
+    "message": "Auto"
+  },
+  "fixedHint": {
+    "message": "Falls back to the nearest lower quality."
+  },
+  "saving": {
+    "message": "Saving…"
+  },
+  "saved": {
+    "message": "Changes are saved automatically."
+  },
+  "saveError": {
+    "message": "Could not save. Please try changing the setting again."
+  },
+  "loadError": {
+    "message": "Could not load settings. Please reopen the popup."
+  },
+  "importSettings": {
+    "message": "Import settings"
+  },
+  "exportSettings": {
+    "message": "Export settings"
+  },
+  "importing": {
+    "message": "Importing settings…"
+  },
+  "importSuccess": {
+    "message": "Settings imported and applied."
+  },
+  "importInvalid": {
+    "message": "This is not a valid FrameFix settings file."
+  },
+  "importVersion": {
+    "message": "This settings file version is not supported."
+  },
+  "importTooLarge": {
+    "message": "Settings files must be 64 KB or smaller."
+  },
+  "language": {
+    "message": "Language"
+  },
+  "languageAuto": {
+    "message": "Auto"
+  },
+  "extensionEnabled": {
+    "message": "Enable FrameFix"
+  },
+  "disabledHint": {
+    "message": "Quality control is off. YouTube chooses automatically."
+  }
+}
