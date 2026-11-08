@@ -46,12 +46,6 @@ The legacy `quality: "auto"` setting in local storage and version 1 backups is m
 
 MIT
 
-## CHZZK
-
-Use the YouTube / CHZZK selector for independent quality settings. CHZZK prefers the highest available quality up to 1080p. The optional maximum-volume setting applies 100% volume at playback initialization, preserves mute, and allows subsequent manual volume changes. The popup remembers the last selected site. Backup v3 includes CHZZK settings and supports importing v1/v2.
-
-CHZZK uses player quality-menu DOM elements. Site changes or absent menu elements may prevent application; live-site verification for live streams and VOD is still required.
-
 ## Disclaimer
 
 FrameFix is an independent third-party extension and is not affiliated with YouTube, Google, CHZZK, or NAVER.
