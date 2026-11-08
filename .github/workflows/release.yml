@@ -66,5 +66,4 @@ jobs:
           gh release create "$RELEASE_TAG" release/* \
             --target "$RELEASE_SHA" \
             --title "FrameFix $RELEASE_TAG" \
-            --notes-file release/RELEASE-NOTES.md \
-            --prerelease
+            --notes-file release/RELEASE-NOTES.md

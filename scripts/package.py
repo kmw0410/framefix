@@ -43,7 +43,7 @@ for directory in ['src', 'i18n', 'manifests', 'public', 'scripts', 'tests', 'doc
 if (ROOT / 'LICENSE').is_file():
     source.append(ROOT / 'LICENSE')
 archive(out / f'framefix-{version}-source.zip', ROOT, source)
-(out / 'RELEASE-NOTES.md').write_text(f'''FrameFix {version} — preview release
+(out / 'RELEASE-NOTES.md').write_text(f'''FrameFix {version} — release
 
 - Chrome: download `framefix-{version}-chrome.zip`, extract it, then use **Load unpacked** in `chrome://extensions` with Developer mode enabled.
 - Source: `framefix-{version}-source.zip`; build with Node.js 24 and `npm ci && npm run build`.
