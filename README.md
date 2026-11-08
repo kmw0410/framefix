@@ -52,4 +52,6 @@ Use the YouTube / CHZZK selector for independent quality settings. CHZZK prefers
 
 CHZZK uses player quality-menu DOM elements. Site changes or absent menu elements may prevent application; live-site verification for live streams and VOD is still required.
 
+## Disclaimer
+
 FrameFix is an independent third-party extension and is not affiliated with YouTube, Google, CHZZK, or NAVER.
