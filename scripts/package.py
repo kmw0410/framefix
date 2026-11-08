@@ -28,7 +28,7 @@ base = ROOT / 'dist' / 'chrome'
 manifest = json.loads((base / 'manifest.json').read_text())
 if manifest['version'] != version:
     raise SystemExit('Chrome manifest version mismatch; rebuild first')
-files = [base / name for name in ['manifest.json', 'popup.html', 'popup.css', 'popup.js', 'content.js', 'player.js']]
+files = [base / name for name in ['manifest.json', 'popup.html', 'popup.css', 'popup.js', 'content.js', 'player.js', 'chzzk.js']]
 files += list((base / '_locales').glob('*/messages.json'))
 files += list((base / 'icons').glob('*.png'))
 for mapping in [manifest['icons'], manifest['action']['default_icon']]:

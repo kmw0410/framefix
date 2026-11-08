@@ -14,7 +14,7 @@ test('rejects malformed, foreign, incomplete and invalid settings', () => {
   }
 });
 test('rejects unsupported versions and only imports known settings', () => {
-  assert.throws(()=>parseBackup(JSON.stringify({app:'framefix',version:3,settings:defaults})), /importVersion/);
+  assert.throws(()=>parseBackup(JSON.stringify({app:'framefix',version:4,settings:defaults})), /importVersion/);
   assert.deepEqual(parseBackup(JSON.stringify({app:'framefix',version:1,settings:{...defaults,extra:123}})), defaults);
 });
 
@@ -31,4 +31,14 @@ test('backup v2 retains OFF settings and v1 automatic quality migrates', () => {
   assert.equal(old.enabled, false);
   assert.equal(old.quality, '1080');
   assert.throws(()=>parseBackup(JSON.stringify({app:'framefix',version:2,settings:{quality:'1080',theme:'dark',preferEnhancedBitrate:true}})), /importInvalid/);
+});
+
+test('CHZZK settings round trip independently and reject malformed v3', () => {
+  const settings = { ...defaults, enabled: false, chzzkEnabled: true, chzzkMaxVolume: false };
+  assert.deepEqual(parseBackup(serializeBackup(settings)), settings);
+  assert.throws(() => parseBackup(JSON.stringify({ app: 'framefix', version: 3, settings: { ...settings, chzzkMaxVolume: 'yes' } })), /importInvalid/);
+  const legacy = { enabled: false, quality: '2160', preferEnhancedBitrate: false, theme: 'system' };
+  const migrated = parseBackup(JSON.stringify({ app: 'framefix', version: 2, settings: legacy }));
+  assert.equal(migrated.quality, '2160');
+  assert.equal(migrated.chzzkEnabled, true);
 });

@@ -79,5 +79,17 @@
   },
   "disabledHint": {
     "message": "Quality control is off. YouTube chooses automatically."
+  },
+  "chzzkQuality": {
+    "message": "Best available quality · Up to 1080p"
+  },
+  "maxVolume": {
+    "message": "Start playback at 100% volume"
+  },
+  "maxVolumeHint": {
+    "message": "You can adjust volume afterward. Muted playback stays muted."
+  },
+  "disclaimer": {
+    "message": "FrameFix is an independent third-party extension and is not affiliated with YouTube, Google, CHZZK, or NAVER."
   }
 }

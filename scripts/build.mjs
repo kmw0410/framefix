@@ -7,13 +7,13 @@ if (Object.keys(ko).sort().join() !== Object.keys(en).sort().join()) throw new E
 const out = 'dist/chrome';
 await rm(out, { recursive:true, force:true });
 await mkdir(out, { recursive:true });
-await build({ entryPoints:{popup:'src/popup/popup.ts',content:'src/content/index.ts',player:'src/player/index.ts'},outdir:out,bundle:true,format:'iife',target:['chrome120'] });
+await build({ entryPoints:{chzzk:'src/chzzk/index.ts',popup:'src/popup/popup.ts',content:'src/content/index.ts',player:'src/player/index.ts'},outdir:out,bundle:true,format:'iife',target:['chrome120'] });
 await cp('src/popup/index.html',`${out}/popup.html`);
 await cp('src/popup/popup.css',`${out}/popup.css`);
 await cp('i18n',`${out}/_locales`,{recursive:true});
 await cp('public/icons', `${out}/icons`, { recursive: true });
 const icons = Object.fromEntries([16, 32, 48, 128].map(size => [size, `icons/icon-${size}.png`]));
 const specific = JSON.parse(await readFile('manifests/chrome.json'));
-const manifest = {manifest_version:3,name:'__MSG_extensionName__',description:'__MSG_extensionDescription__',version,default_locale:'en',permissions:['storage'],icons,action:{default_icon:icons,default_popup:'popup.html',default_title:'__MSG_extensionName__'},content_scripts:[{matches:['https://www.youtube.com/*'],js:['player.js'],world:'MAIN',run_at:'document_start'},{matches:['https://www.youtube.com/*'],js:['content.js'],run_at:'document_start'}],...specific};
+const manifest = {manifest_version:3,name:'__MSG_extensionName__',description:'__MSG_extensionDescription__',version,default_locale:'en',permissions:['storage'],icons,action:{default_icon:icons,default_popup:'popup.html',default_title:'__MSG_extensionName__'},content_scripts:[{matches:['https://chzzk.naver.com/*'],js:['chzzk.js'],run_at:'document_idle'},{matches:['https://www.youtube.com/*'],js:['player.js'],world:'MAIN',run_at:'document_start'},{matches:['https://www.youtube.com/*'],js:['content.js'],run_at:'document_start'}],...specific};
 await writeFile(`${out}/manifest.json`,JSON.stringify(manifest,null,2));
 console.log('Built dist/chrome');

@@ -110,3 +110,7 @@ footer { min-height: 66px; padding: 18px 24px 16px; font-size: 10px; line-height
 .theme-row { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
 #theme-label { font-size: 12px; color: var(--muted); }
 .language-row { margin-top: 14px; padding-top: 0; border-top: 0; }
+
+[hidden] { display: none !important; }
+[data-site] { flex: 1; }
+main > .languages { display: flex; margin-bottom: 16px; }

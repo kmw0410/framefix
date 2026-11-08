@@ -6,6 +6,9 @@ const importButton = document.querySelector<HTMLButtonElement>('#import-settings
 const exportButton = document.querySelector<HTMLButtonElement>('#export-settings')!;
 const fileInput = document.querySelector<HTMLInputElement>('#settings-file')!;
 let importing = false;
+let site = 'youtube';
+const volume = document.querySelector<HTMLInputElement>('#max-volume')!;
+const sites = [...document.querySelectorAll<HTMLButtonElement>('[data-site]')];
 const languages = [...document.querySelectorAll<HTMLButtonElement>('[data-language]')];
 const picker = createQualityPicker(value => { settings.quality = value; save(); });
 const enabled = document.querySelector<HTMLInputElement>('#enabled')!;
@@ -27,9 +30,15 @@ function render() {
     button.setAttribute('aria-pressed', String(button.dataset.language === settings.language));
   });
   document.documentElement.dataset.theme = settings.theme;
-  enabled.checked = settings.enabled;
+  enabled.checked = site === 'youtube' ? settings.enabled : settings.chzzkEnabled;
+  sites.forEach(button => { button.disabled = importing; button.setAttribute('aria-pressed', String(button.dataset.site === site)); });
+  document.querySelector<HTMLElement>('.quality-section')!.hidden = site !== 'youtube';
+  document.querySelector<HTMLElement>('.bitrate-section')!.hidden = site !== 'youtube';
+  document.querySelector<HTMLElement>('#chzzk-settings')!.hidden = site !== 'chzzk';
+  volume.checked = settings.chzzkMaxVolume;
+  volume.disabled = importing;
   enabled.disabled = importing;
-  enabledState.textContent = settings.enabled ? 'ON' : 'OFF';
+  enabledState.textContent = enabled.checked ? 'ON' : 'OFF';
   enabled.setAttribute('aria-label', t('extensionEnabled'));
   document.querySelector('#quality-hint')!.textContent = t(settings.enabled ? 'fixedHint' : 'disabledHint');
   picker.update(settings.quality, importing || !settings.enabled);
@@ -88,6 +97,9 @@ async function init() {
   translate();
   enhanced.setAttribute('aria-describedby','enhanced-hint');
   settings = await readSettings();
+  site = (await chrome.storage.local.get('selectedSite')).selectedSite === 'chzzk' ? 'chzzk' : 'youtube';
+  sites.forEach(button => button.addEventListener('click', () => { site = button.dataset.site!; void chrome.storage.local.set({ selectedSite: site }); render(); }));
+  volume.addEventListener('change', () => { settings.chzzkMaxVolume = volume.checked; save(); });
   themes.forEach(button => button.disabled = false);
   render();
   status.textContent = t('saved');
@@ -95,7 +107,7 @@ async function init() {
   importButton.addEventListener('click', () => fileInput.click());
   fileInput.addEventListener('change', () => { void importFile(); });
   exportButton.addEventListener('click', exportFile);
-  enabled.addEventListener('change', () => { settings.enabled = enabled.checked; save(); });
+  enabled.addEventListener('change', () => { if (site === 'youtube') settings.enabled = enabled.checked; else settings.chzzkEnabled = enabled.checked; save(); });
   enhanced.addEventListener('change', () => { settings.preferEnhancedBitrate = enhanced.checked; save(); });
   themes.forEach(button => button.addEventListener('click', () => { settings.theme = button.dataset.theme as Settings['theme']; save(); }));
 }

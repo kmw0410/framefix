@@ -16,6 +16,15 @@
     </label>
   </header>
   <main>
+    <div class="languages" role="group" aria-label="Site">
+      <button type="button" data-site="youtube" aria-pressed="true">YouTube</button>
+      <button type="button" data-site="chzzk" aria-pressed="false">CHZZK</button>
+    </div>
+    <section id="chzzk-settings" hidden>
+      <p data-i18n="chzzkQuality"></p>
+      <div class="toggle-row"><label for="max-volume" data-i18n="maxVolume"></label><input id="max-volume" type="checkbox" role="switch"></div>
+      <p class="hint" data-i18n="maxVolumeHint"></p>
+    </section>
     <section class="quality-section" aria-labelledby="quality-label">
       <label id="quality-label" for="quality" data-i18n="quality"></label>
       <div class="select-wrap">
@@ -57,6 +66,7 @@
       <button type="button" id="export-settings" data-i18n="exportSettings" disabled></button>
       <input type="file" id="settings-file" accept=".json,application/json" hidden>
     </div>
+    <p class="hint" data-i18n="disclaimer"></p>
     <p id="status" role="status" aria-live="polite"></p>
   </footer>
 </body>
