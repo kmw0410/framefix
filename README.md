@@ -34,7 +34,7 @@ This extension is not listed on the Chrome Web Store.
 
 ## Settings Backup
 
-Use **Export settings** at the bottom of the popup to save `framefix-settings.json`, and **Import settings** to transfer settings between Chrome browsers or devices. The file includes `app: "framefix"`, format `version: 2`, and settings for ON/OFF, quality, bitrate preference, theme, and language. Importing replaces all existing settings and applies them immediately after a successful save. Invalid formats or values, unsupported versions, and files larger than 64 KB leave existing settings unchanged. No additional permissions or external data transfers are required.
+Use **Export settings** at the bottom of the popup to save `framefix-settings.json`, and **Import settings** to transfer settings between Chrome browsers or devices. The file includes `app: "framefix"`, format `version: 3`, and settings for ON/OFF, quality, bitrate preference, theme, and language. Importing replaces all existing settings and applies them immediately after a successful save. Invalid formats or values, unsupported versions, and files larger than 64 KB leave existing settings unchanged. No additional permissions or external data transfers are required.
 
 ## Interface Language
 
