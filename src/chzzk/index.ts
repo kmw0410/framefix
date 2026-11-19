@@ -31,7 +31,7 @@ function tick() {
   target.item.click();
 }
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area !== 'local' || !changes.settings) return;
+  if (area !== 'local' || !changes.settings?.newValue) return;
   const next = normalize(changes.settings.newValue);
   if (next.chzzkMaxVolume && !settings?.chzzkMaxVolume) volume.reset();
   settings = next; attempts = 0; lastClick = 0; tick();

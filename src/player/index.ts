@@ -10,7 +10,7 @@ let previousPlayer: Player | null = null;
 let wasAd = false;
 let released = false;
 let enforcedId = '';
-function reset() { attempts = 0; lastAttempt = 0; enforcedId = ''; }
+function reset() { attempts = 0; lastAttempt = 0; enforcedId = ''; wasAd = false; }
 function tick() {
   if (!configured || document.visibilityState === 'hidden') return;
   const url = new URL(location.href);
@@ -23,7 +23,7 @@ function tick() {
   if (id !== videoId || player !== previousPlayer) { videoId = id; previousPlayer = player; reset(); released = false; }
   const isAd = player.classList.contains('ad-showing') || player.classList.contains('ad-interrupting');
   if (isAd) { wasAd = true; return; }
-  if (wasAd) { wasAd = false; reset(); }
+  if (wasAd) reset();
   if (Date.now() - lastAttempt < 2500) return;
   let counted = false;
   try {
@@ -40,7 +40,7 @@ function tick() {
   } catch { lastAttempt = Date.now(); if (!counted) attempts++; }
 }
 window.addEventListener('message', event => {
-  if (event.source !== window || event.origin !== location.origin || event.data?.channel !== 'youtube-auto-hd' || event.data.type !== 'settings') return;
+  if (event.source !== window || event.origin !== location.origin || event.data?.channel !== 'youtube-auto-hd' || event.data.type !== 'settings' || !event.data.settings) return;
   const next = normalize(event.data.settings);
   if (!configured || next.enabled !== settings.enabled || next.quality !== settings.quality || next.preferEnhancedBitrate !== settings.preferEnhancedBitrate) { reset(); released = false; }
   settings = next; configured = true; tick();
