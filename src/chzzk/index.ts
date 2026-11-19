@@ -1,4 +1,5 @@
 import { createVolumeInitializer } from './volume';
+import { selectChzzkHeight } from './quality';
 import { readSettings, normalize, type Settings } from '../shared/settings';
 let settings: Settings | undefined;
 let lastClick = 0;
@@ -21,9 +22,9 @@ function tick() {
   const root = video.closest('.pzp-pc, .pzp');
   if (!root) return;
   const items = [...root.querySelectorAll<HTMLElement>('.pzp-pc-ui-setting-quality-item')];
-  const candidates = items.map(item => ({ item, height: Number(item.querySelector('.pzp-pc-ui-setting-quality-item__prefix')?.textContent?.match(/(\d+)p/i)?.[1]) }))
-    .filter(q => q.height > 0 && q.height <= 1080).sort((a, b) => b.height - a.height);
-  const target = candidates[0];
+  const candidates = items.map(item => ({ item, height: Number(item.querySelector('.pzp-pc-ui-setting-quality-item__prefix')?.textContent?.match(/(\d+)p/i)?.[1]) }));
+  const height = selectChzzkHeight(candidates.map(q => q.height), settings.quality);
+  const target = height === undefined ? undefined : candidates.find(q => q.height === height);
   if (!target) return;
   if (target.item.getAttribute('aria-checked') === 'true' || target.item.classList.contains('pzp-pc-ui-setting-quality-item--selected')) { attempts = 0; return; }
   lastClick = Date.now(); attempts++;
