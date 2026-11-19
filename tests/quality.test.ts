@@ -27,6 +27,12 @@ test('auto, empty lists and unsupported player identifiers are safe', () => {
   assert.equal(parseQuality('unknown'),undefined);
   assert.deepEqual(parseQuality('hd1080_premium'),{id:'hd1080_premium',height:1080,enhanced:true});
 });
+test('2880p is selectable and parsed consistently', () => {
+  assert.deepEqual(parseQuality('hd2880'), { id: 'hd2880', height: 2880, enhanced: false });
+  const with2880: Quality[] = [...levels, { id: 'hd2880', height: 2880, enhanced: false }];
+  assert.equal(chooseQuality(with2880, { ...defaults, quality: '2880' })?.id, 'hd2880');
+});
+
 test('invalid settings normalize and theme defaults to system', () => {
   assert.deepEqual(normalize(null),defaults);
   assert.deepEqual(normalize({quality:'999',theme:'evil',preferEnhancedBitrate:'true'}),defaults);

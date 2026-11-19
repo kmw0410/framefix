@@ -1,4 +1,4 @@
-export const qualities = ['144','240','360','480','720','1080','1440','2160','4320'] as const;
+export const qualities = ['144','240','360','480','720','1080','1440','2160','2880','4320'] as const;
 export type Settings = { chzzkEnabled: boolean; chzzkMaxVolume: boolean; enabled: boolean; quality: typeof qualities[number]; preferEnhancedBitrate: boolean; theme: 'system' | 'light' | 'dark'; language: 'auto' | 'ko' | 'en' };
 export const defaults: Settings = { chzzkEnabled: true, chzzkMaxVolume: true, enabled: true, quality: '1080', preferEnhancedBitrate: false, theme: 'system', language: 'auto' };
 export function normalize(value: unknown): Settings {
